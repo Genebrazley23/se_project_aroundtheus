@@ -47,7 +47,7 @@
   width: 193px;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 740px) {
   .card__discription {
     align-items: center;
   }
