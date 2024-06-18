@@ -48,4 +48,4 @@ Project 3 checklist
 
 - [link to project checklist](https://practicum-content.s3.us-west-1.amazonaws.com/web-developer/checklists-pdf/all-new/Project_3_Checklist.pdf)
 
-[Repository Name](git@github.com:Genebrazley23/se_project_aroundtheus.git)
+- [link to project](https://genebrazley23.github.io/se_project_aroundtheus/)
