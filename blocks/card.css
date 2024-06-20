@@ -45,9 +45,3 @@
   line-height: 29.05px;
   margin: 0;
 }
-
-@media screen and (max-width: 740px) {
-  .card__discription {
-    align-items: center;
-  }
-}

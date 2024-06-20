@@ -49,3 +49,5 @@ Project 3 checklist
 - [link to project checklist](https://practicum-content.s3.us-west-1.amazonaws.com/web-developer/checklists-pdf/all-new/Project_3_Checklist.pdf)
 
 - [link to project](https://genebrazley23.github.io/se_project_aroundtheus/)
+
+- [link to video discription](https://youtu.be/bXGx9-tSz0Y)

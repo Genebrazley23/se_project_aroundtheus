@@ -79,16 +79,12 @@
   .profile {
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     padding-top: 42px;
   }
   .profile__avater {
-    height: 120px;
-    width: 120px;
-    object-fit: cover;
     background-position: center;
-    border-radius: 50%;
-    margin: 0;
+    margin-right: 0;
+    margin-bottom: 30px;
     padding: 0;
   }
 
@@ -96,6 +92,7 @@
     font-size: 22px;
     text-align: center;
     width: 196px;
+    line-height: 27px;
   }
 
   .profile__info {
