@@ -3,6 +3,7 @@
   flex-direction: column;
   list-style-type: none;
   margin: 0;
+  position: relative;
 }
 
 .card__image {
@@ -29,6 +30,10 @@
   height: 18px;
   border: none;
   cursor: pointer;
+}
+
+.card__like-button_active {
+  background-image: url(../images/Union.svg);
 }
 
 .card__like-button:hover {
