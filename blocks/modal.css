@@ -28,6 +28,7 @@
   padding: 34px 36px;
   border-radius: 10px;
   position: relative;
+  box-sizing: border-box;
 }
 
 #place__create-modal .modal__container,
