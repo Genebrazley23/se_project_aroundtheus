@@ -31,10 +31,13 @@ const profileEditButton = document.querySelector(".profile__edit-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileEditModal = document.querySelector("#profile__edit-modal");
 const profileDiscription = document.querySelector(".profile__discription");
-const profieTitleInput = document.querySelector("#profile-title-input");
-const profileDiscriptionInput = document.querySelector(
+const profileTitleInput = document.querySelector("#profile-title-input");
+const profileDescriptionInput = document.querySelector(
   "#profile-discription-input"
 );
+
+const inputSelector = document.querySelectorAll(".modal__input");
+
 const profileEditForm = document.forms["profile__form"];
 const profileModalClose = profileEditModal.querySelector(".modal__close");
 const profileAddButton = document.querySelector(".profile__add-button");
@@ -59,15 +62,15 @@ const imageModalName = document.querySelector(".modal__name");
 
 /* LISTENERS */
 profileEditButton.addEventListener("click", function () {
-  profieTitleInput.value = profileTitle.textContent;
-  profileDiscriptionInput.value = profileDiscription.textContent;
+  profileTitleInput.value = profileTitle.textContent;
+  profileDescriptionInput.value = profileDiscription.textContent;
   openModal(profileEditModal);
 });
 
 profileEditForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  profileTitle.textContent = profieTitleInput.value;
-  profileDiscription.textContent = profileDiscriptionInput.value;
+  profileTitle.textContent = profileTitleInput.value;
+  profileDiscription.textContent = profileDescriptionInput.value;
   closeModal(profileEditModal);
   return false;
 });
@@ -148,6 +151,12 @@ function openModal(modal) {
   document.addEventListener("keydown", handleEscClose);
   modal.addEventListener("click", handleOverlayClose);
   modal.classList.add("modal_open");
+
+  const form = modal.querySelector(".modal__form");
+  const inputEles = [...form.querySelectorAll(".modal__input")];
+  inputEles.forEach((inputEle) => {
+    hideInputError(form, inputEle, config);
+  });
 }
 
 function closeModal(modal) {
