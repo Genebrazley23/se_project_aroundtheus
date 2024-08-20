@@ -1,3 +1,6 @@
+import FormValidator from "./FormValidator.js";
+import Card from "./Card.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -25,6 +28,23 @@ const initialCards = [
   },
 ];
 
+const cardInfo = {
+  name: "Yosemite Valley",
+  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+};
+
+const validationConfig = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
+const card = new Card(cardInfo);
+card.getView();
+
 /* ELEMENTS */
 
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -39,15 +59,13 @@ const profileEditForm = document.forms["profile__form"];
 const profileModalClose = profileEditModal.querySelector(".modal__close");
 const profileAddButton = document.querySelector(".profile__add-button");
 
-const saveProfileButton = profileEditModal.querySelector(".modal__button");
-
 const cardTemplate = document.querySelector("#card__template").content;
 const cardListElement = document.querySelector(".cards__list");
 
 const placeCreateForm = document.forms["place__create-form"];
 const placeCreateModal = document.querySelector("#place__create-modal");
 const placeCreateClose = placeCreateModal.querySelector(".modal__close");
-const placeCreateButtton = placeCreateModal.querySelector(".modal__button");
+
 const placeNameInput = document.querySelector("#place__name-input");
 const placeImageInput = document.querySelector("#place__image-link-input");
 
@@ -55,6 +73,17 @@ const imageModal = document.querySelector("#image__popup");
 const imageModalCloseButton = imageModal.querySelector(".modal__close");
 const imageModalZoom = document.querySelector(".modal__zoom");
 const imageModalName = document.querySelector(".modal__name");
+
+const profileEditFormValidator = new FormValidator(
+  validationConfig,
+  profileEditForm
+);
+const placeCreateFormValidator = new FormValidator(
+  validationConfig,
+  placeCreateForm
+);
+profileEditFormValidator.enableValidation();
+placeCreateFormValidator.enableValidation();
 
 /* LISTENERS */
 profileEditButton.addEventListener("click", function () {
