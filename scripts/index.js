@@ -126,13 +126,10 @@ imageModalCloseButton.addEventListener("click", function () {
 // Define the createCard function
 function createCard(cardData) {
   // Select the template element and clone its contents
-  const cardInfo = new Card(cardData, "#card__template");
-  const cardElement = cardInfo.getView();
-  const cardImageElement = cardElement.querySelector(".card__image");
-  cardImageElement.addEventListener("click", function () {
+  const cardInfo = new Card(cardData, "#card__template", function () {
     openZoomPicture(cardData.link, cardData.name);
   });
-
+  const cardElement = cardInfo.getView();
   return cardElement;
 }
 

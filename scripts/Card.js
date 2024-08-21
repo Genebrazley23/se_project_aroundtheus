@@ -1,8 +1,9 @@
 class Card {
-  constructor({ name, link }, cardSelector) {
+  constructor({ name, link }, cardSelector, cardImageClickHandler) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
+    this._cardImageClickHandler = cardImageClickHandler;
   }
 
   _setEventListeners() {
@@ -15,6 +16,9 @@ class Card {
       const cardItem = removeButton.closest(".card");
       cardItem.remove();
     });
+
+    const cardImageElement = this._cardElement.querySelector(".card__image");
+    cardImageElement.addEventListener("click", this._cardImageClickHandler);
   }
   _bindInfo() {
     const cardTitleElement = this._cardElement.querySelector(".card__name");
