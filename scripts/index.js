@@ -28,11 +28,6 @@ const initialCards = [
   },
 ];
 
-const cardInfo = {
-  name: "Yosemite Valley",
-  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-};
-
 const validationConfig = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
@@ -42,11 +37,7 @@ const validationConfig = {
   errorClass: "modal__error_visible",
 };
 
-const card = new Card(cardInfo);
-card.getView();
-
 /* ELEMENTS */
-
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileEditModal = document.querySelector("#profile__edit-modal");
@@ -59,7 +50,6 @@ const profileEditForm = document.forms["profile__form"];
 const profileModalClose = profileEditModal.querySelector(".modal__close");
 const profileAddButton = document.querySelector(".profile__add-button");
 
-const cardTemplate = document.querySelector("#card__template").content;
 const cardListElement = document.querySelector(".cards__list");
 
 const placeCreateForm = document.forms["place__create-form"];
@@ -136,28 +126,9 @@ imageModalCloseButton.addEventListener("click", function () {
 // Define the createCard function
 function createCard(cardData) {
   // Select the template element and clone its contents
-  const cardElement = cardTemplate.cloneNode(true);
-
-  // Access the card title and image elements within the cloned element
-  const cardTitleElement = cardElement.querySelector(".card__name");
+  const cardInfo = new Card(cardData, "#card__template");
+  const cardElement = cardInfo.getView();
   const cardImageElement = cardElement.querySelector(".card__image");
-
-  // Set the image path, alt text, and the card title
-  cardImageElement.src = cardData.link;
-  cardImageElement.alt = cardData.name;
-  cardTitleElement.textContent = cardData.name;
-
-  const likeButton = cardElement.querySelector(".card__like-button");
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
-  });
-
-  const removeButton = cardElement.querySelector(".delete__button");
-  removeButton.addEventListener("click", () => {
-    const cardItem = removeButton.closest(".card");
-    cardItem.remove();
-  });
-
   cardImageElement.addEventListener("click", function () {
     openZoomPicture(cardData.link, cardData.name);
   });
