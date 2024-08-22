@@ -6,7 +6,10 @@ class FormValidator {
     this._inactiveButtonClass = config.inactiveButtonClass;
     this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
+
     this.formEle = formEle;
+    this._inputEles = [...this.formEle.querySelectorAll(this._inputSelector)];
+    this._submitButton = this.formEle.querySelector(this._submitButtonSelector);
   }
 
   _showInputError(inputEle) {
@@ -36,32 +39,27 @@ class FormValidator {
   }
 
   _toggleButtonState() {
-    const inputEles = [...this.formEle.querySelectorAll(this._inputSelector)];
-    const submitButton = this.formEle.querySelector(this._submitButtonSelector);
-    const foundInvalid = inputEles.some((inputEle) => !inputEle.validity.valid);
+    const foundInvalid = this._inputEles.some(
+      (inputEle) => !inputEle.validity.valid
+    );
 
     if (foundInvalid) {
-      submitButton.classList.add(this._inactiveButtonClass);
-      submitButton.disabled = true;
+      this._submitButton.classList.add(this._inactiveButtonClass);
+      this._submitButton.disabled = true;
     } else {
-      submitButton.classList.remove(this._inactiveButtonClass);
-      submitButton.disabled = false;
+      this._submitButton.classList.remove(this._inactiveButtonClass);
+      this._submitButton.disabled = false;
     }
   }
 
   _setEventListeners() {
-    const inputEles = [...this.formEle.querySelectorAll(this._inputSelector)];
-    const submitButton = this.formEle.querySelector(this._submitButtonSelector);
-    this._toggleButtonState(inputEles, submitButton);
-    inputEles.forEach((inputEle) => {
+    this._toggleButtonState(this._inputEles, this._submitButton);
+    this._inputEles.forEach((inputEle) => {
       inputEle.addEventListener("input", () => {
         this._checkInputValidity(inputEle);
-        this._toggleButtonState(inputEles, submitButton);
+        this._toggleButtonState(this._inputEles, this._submitButton);
       });
     });
-
-    this._inputEles = inputEles;
-    this._submitButton = submitButton;
   }
 
   enableValidation() {
