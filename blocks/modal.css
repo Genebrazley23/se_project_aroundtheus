@@ -111,7 +111,7 @@
 .modal__button.modal__button_disabled {
   opacity: 0.8;
   border-color: gainsboro;
-  background-color: gray; /* Adjust this value as per your design */
+  background-color: gray;
 }
 
 .modal__button {

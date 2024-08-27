@@ -1,5 +1,5 @@
-import FormValidator from "./FormValidator.js";
-import Card from "./Card.js";
+import FormValidator from "../scripts/FormValidator.js";
+import Card from "../scripts/Card.js";
 
 const initialCards = [
   {
@@ -96,6 +96,8 @@ placeCreateForm.addEventListener("submit", function (e) {
     name: placeNameInput.value,
     link: placeImageInput.value,
   };
+
+  placeCreateFormValidator.disableSubmit();
 
   const card = createCard(cardData);
   cardListElement.prepend(card);
