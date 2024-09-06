@@ -63,6 +63,13 @@ const placeNameInput = document.querySelector("#place__name-input");
 const placeImageInput = document.querySelector("#place__image-link-input");
 
 const popupWithImage = new PopupWithImage("#image__popup");
+popupWithImage.setEventListeners();
+const profileEditPopup = new PopupWithForm(
+  "#profile__edit-modal",
+  handleEditFormSubmit
+);
+
+profileEditPopup.setEventListeners();
 
 const profileEditFormValidator = new FormValidator(
   validationConfig,
@@ -79,16 +86,16 @@ placeCreateFormValidator.enableValidation();
 profileEditButton.addEventListener("click", function () {
   profileTitleInput.value = profileTitle.textContent;
   profileDiscriptionInput.value = profileDescription.textContent;
-  openModal(profileEditModal);
+  profileEditPopup.open();
 });
 
-profileEditForm.addEventListener("submit", function (e) {
+function handleEditFormSubmit(e, data) {
   e.preventDefault();
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDiscriptionInput.value;
-  closeModal(profileEditModal);
+  profileTitle.textContent = data["title"];
+  profileDescription.textContent = data["description"];
+  profileEditPopup.close();
   return false;
-});
+}
 
 placeCreateForm.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -133,6 +140,7 @@ function createCard(cardData) {
 
 function openZoomPicture(src, alt) {
   const data = { name: alt, link: src };
+
   popupWithImage.open(data);
 }
 
