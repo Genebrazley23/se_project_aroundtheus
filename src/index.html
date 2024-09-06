@@ -4,17 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Around the U.S</title>
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="page">
     <div class="page__content">
       <header class="header page__section">
-        <img src="./images/Vector.svg" alt="aroundlogo" class="header__logo" />
+        <img
+          src="<%=require('./images/Vector.svg')%>"
+          alt="aroundlogo"
+          class="header__logo"
+        />
       </header>
       <main class="content">
         <section class="profile page__section">
           <img
-            src="./images/Avatar.jpg"
+            src="<%=require('./images/Avatar.jpg')%>"
             alt="Avatar logo"
             class="profile__avater"
           />
@@ -143,6 +146,5 @@
       </li>
     </template>
     <div class="cards"></div>
-    <script type="module" src="./pages/index.js"></script>
   </body>
 </html>

@@ -1,5 +1,8 @@
 import FormValidator from "../scripts/FormValidator.js";
 import Card from "../scripts/Card.js";
+import "../pages/index.css";
+import PopupWithImage from "../scripts/PopupWithImage.js";
+import PopupWithForm from "../scripts/PopupWithForm.js";
 
 const initialCards = [
   {
@@ -59,10 +62,7 @@ const placeCreateClose = placeCreateModal.querySelector(".modal__close");
 const placeNameInput = document.querySelector("#place__name-input");
 const placeImageInput = document.querySelector("#place__image-link-input");
 
-const imageModal = document.querySelector("#image__popup");
-const imageModalCloseButton = imageModal.querySelector(".modal__close");
-const imageModalZoom = document.querySelector(".modal__zoom");
-const imageModalName = document.querySelector(".modal__name");
+const popupWithImage = new PopupWithImage("#image__popup");
 
 const profileEditFormValidator = new FormValidator(
   validationConfig,
@@ -119,10 +119,6 @@ profileAddButton.addEventListener("click", function () {
   openModal(placeCreateModal);
 });
 
-imageModalCloseButton.addEventListener("click", function () {
-  closeModal(imageModal);
-});
-
 /* Functions */
 
 // Define the createCard function
@@ -136,37 +132,8 @@ function createCard(cardData) {
 }
 
 function openZoomPicture(src, alt) {
-  openModal(imageModal);
-  imageModalName.textContent = alt;
-  imageModalZoom.src = src;
-  imageModalZoom.alt = alt;
-}
-
-function openModal(modal) {
-  document.addEventListener("keydown", handleEscClose);
-  modal.addEventListener("click", handleOverlayClose);
-  modal.classList.add("modal_open");
-}
-
-function closeModal(modal) {
-  modal.removeEventListener("click", handleOverlayClose);
-  document.removeEventListener("keydown", handleEscClose);
-  modal.classList.remove("modal_open");
-}
-
-function handleEscClose(evt) {
-  if (evt.key === "Escape") {
-    const openModal = document.querySelector(".modal_open");
-    if (openModal) {
-      closeModal(openModal);
-    }
-  }
-}
-
-function handleOverlayClose(evt) {
-  if (evt.target.classList.contains("modal_open")) {
-    closeModal(evt.target);
-  }
+  const data = { name: alt, link: src };
+  popupWithImage.open(data);
 }
 
 initialCards.forEach(function (cardData) {
