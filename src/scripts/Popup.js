@@ -23,7 +23,6 @@ export default class Popup {
 
   _handleOverlayClose() {
     this.close();
-    console.log("eimpoa");
   }
 
   _handleCloseButton() {
@@ -38,7 +37,6 @@ export default class Popup {
       .querySelector(".modal__container")
       .addEventListener("click", (e) => {
         e.stopPropagation();
-        e.preventDefault();
       });
   }
 }

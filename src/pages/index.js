@@ -3,6 +3,7 @@ import Card from "../scripts/Card.js";
 import "../pages/index.css";
 import PopupWithImage from "../scripts/PopupWithImage.js";
 import PopupWithForm from "../scripts/PopupWithForm.js";
+import UserInfo from "../scripts/UserInfo.js";
 
 const initialCards = [
   {
@@ -64,12 +65,24 @@ const placeImageInput = document.querySelector("#place__image-link-input");
 
 const popupWithImage = new PopupWithImage("#image__popup");
 popupWithImage.setEventListeners();
+
+const userInfo = new UserInfo();
+
+userInfo.setUserInfo({ title: "Jacques Cousteau", description: "Explorer" });
+
 const profileEditPopup = new PopupWithForm(
   "#profile__edit-modal",
   handleEditFormSubmit
 );
 
 profileEditPopup.setEventListeners();
+
+const placeCreatePopup = new PopupWithForm(
+  "#place__create-modal",
+  handlePlaceCreateForm
+);
+
+placeCreatePopup.setEventListeners();
 
 const profileEditFormValidator = new FormValidator(
   validationConfig,
@@ -84,46 +97,34 @@ placeCreateFormValidator.enableValidation();
 
 /* LISTENERS */
 profileEditButton.addEventListener("click", function () {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDiscriptionInput.value = profileDescription.textContent;
+  const userData = userInfo.getUserInfo();
+  profileTitleInput.value = userData.title;
+  profileDiscriptionInput.value = userData.description;
   profileEditPopup.open();
 });
 
-function handleEditFormSubmit(e, data) {
-  e.preventDefault();
-  profileTitle.textContent = data["title"];
-  profileDescription.textContent = data["description"];
+function handleEditFormSubmit(data) {
+  userInfo.setUserInfo(data);
   profileEditPopup.close();
-  return false;
 }
 
-placeCreateForm.addEventListener("submit", function (e) {
-  e.preventDefault();
+function handlePlaceCreateForm(data) {
   const cardData = {
-    name: placeNameInput.value,
-    link: placeImageInput.value,
+    name: data.title,
+    link: data.link,
   };
-
   placeCreateFormValidator.disableSubmit();
 
   const card = createCard(cardData);
   cardListElement.prepend(card);
   placeNameInput.value = null;
   placeImageInput.value = null;
-  closeModal(placeCreateModal);
+  placeCreatePopup.close();
   return false;
-});
-
-profileModalClose.addEventListener("click", function () {
-  closeModal(profileEditModal);
-});
-
-placeCreateClose.addEventListener("click", function () {
-  closeModal(placeCreateModal);
-});
+}
 
 profileAddButton.addEventListener("click", function () {
-  openModal(placeCreateModal);
+  placeCreatePopup.open();
 });
 
 /* Functions */
