@@ -1,4 +1,4 @@
-export default initialCards = [
+export const initialCards = [
   {
     name: "Yosemite Valley",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -25,7 +25,7 @@ export default initialCards = [
   },
 ];
 
-const validationConfig = {
+export const validationConfig = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__button",

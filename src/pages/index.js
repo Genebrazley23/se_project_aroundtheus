@@ -4,6 +4,8 @@ import "../pages/index.css";
 import PopupWithImage from "../scripts/PopupWithImage.js";
 import PopupWithForm from "../scripts/PopupWithForm.js";
 import UserInfo from "../scripts/UserInfo.js";
+import { initialCards, validationConfig } from "../utils/constants.js";
+import Section from "../scripts/Section.js";
 
 /* ELEMENTS */
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -26,6 +28,12 @@ const placeCreateClose = placeCreateModal.querySelector(".modal__close");
 
 const placeNameInput = document.querySelector("#place__name-input");
 const placeImageInput = document.querySelector("#place__image-link-input");
+
+const cardSection = new Section(
+  { renderer: createCard, items: initialCards },
+  ".cards__list"
+);
+cardSection.renderItems();
 
 const popupWithImage = new PopupWithImage("#image__popup");
 popupWithImage.setEventListeners();
@@ -83,7 +91,7 @@ function handlePlaceCreateForm(data) {
   placeCreateFormValidator.disableSubmit();
 
   const card = createCard(cardData);
-  cardListElement.prepend(card);
+  cardSection.addItem(card);
   placeCreateForm.reset();
   placeCreatePopup.close();
   return false;
@@ -110,8 +118,3 @@ function openZoomPicture(src, alt) {
 
   popupWithImage.open(data);
 }
-
-initialCards.forEach(function (cardData) {
-  const cardElement = createCard(cardData);
-  cardListElement.append(cardElement);
-});
