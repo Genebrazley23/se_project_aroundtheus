@@ -8,7 +8,7 @@
   display: grid;
   grid-template-areas:
     "title button"
-    "discription discription";
+    "description description";
   grid-template-columns: minmax(auto, 373px) auto;
   align-items: center;
   grid-row-gap: 16px;
@@ -63,12 +63,12 @@
   text-overflow: ellipsis;
 }
 
-.profile__discription {
+.profile__description {
   font-family: "Inter", sans-serif;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  grid-area: discription;
+  grid-area: description;
   margin: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -101,7 +101,7 @@
     justify-content: center;
   }
 
-  .profile__discription {
+  .profile__description {
     width: 100%;
     text-align: center;
     padding-bottom: 36px;

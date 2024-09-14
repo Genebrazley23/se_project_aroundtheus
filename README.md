@@ -50,4 +50,4 @@ Project 3 checklist
 
 - [link to project](https://genebrazley23.github.io/se_project_aroundtheus/)
 
-- [link to video discription](https://youtu.be/bXGx9-tSz0Y)
+- [link to video description](https://youtu.be/bXGx9-tSz0Y)

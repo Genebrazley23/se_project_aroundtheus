@@ -1,21 +1,25 @@
-import FormValidator from "../scripts/FormValidator.js";
-import Card from "../scripts/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
 import "../pages/index.css";
-import PopupWithImage from "../scripts/PopupWithImage.js";
-import PopupWithForm from "../scripts/PopupWithForm.js";
-import UserInfo from "../scripts/UserInfo.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 import { initialCards, validationConfig } from "../utils/constants.js";
-import Section from "../scripts/Section.js";
+import Section from "../components/Section.js";
+import Popup from "../components/Popup.js";
 
 /* ELEMENTS */
+
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileEditModal = document.querySelector("#profile__edit-modal");
-const profileDescription = document.querySelector(".profile__discription");
+const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
-const profileDiscriptionInput = document.querySelector(
-  "#profile-discription-input"
+const profileDescriptionInput = document.querySelector(
+  "#profile-description-input"
 );
+
+const openPopupButton = document.querySelector("#image__popup");
 const profileEditForm = document.forms["profile__form"];
 const profileModalClose = profileEditModal.querySelector(".modal__close");
 const profileAddButton = document.querySelector(".profile__add-button");
@@ -74,7 +78,7 @@ placeCreateFormValidator.enableValidation();
 profileEditButton.addEventListener("click", function () {
   const userData = userInfo.getUserInfo();
   profileTitleInput.value = userData.title;
-  profileDiscriptionInput.value = userData.description;
+  profileDescriptionInput.value = userData.description;
   profileEditPopup.open();
 });
 

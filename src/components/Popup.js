@@ -3,6 +3,7 @@ export default class Popup {
     this._popElement = document.querySelector(popupSelector);
     this._popupCloseButton = this._popElement.querySelector(".modal__close");
     this._handleModalClose = this._handleModalClose.bind(this);
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   open() {
@@ -34,5 +35,7 @@ export default class Popup {
       .addEventListener("click", (e) => {
         e.stopPropagation();
       });
+
+    this._popupCloseButton.addEventListener("click", this._handleModalClose);
   }
 }
