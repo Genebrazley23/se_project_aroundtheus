@@ -19,9 +19,7 @@ export default class PopupWithForm extends Popup {
   }
 
   _clearInputs() {
-    this._inputList.forEach((input) => {
-      input.value = "";
-    });
+    this._popupForm.reset();
   }
 
   setEventListeners() {
@@ -32,9 +30,5 @@ export default class PopupWithForm extends Popup {
       this._handleFormSubmit(data);
       this._popupForm.reset();
     });
-  }
-
-  close() {
-    super.close();
   }
 }
