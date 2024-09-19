@@ -6,7 +6,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import { initialCards, validationConfig } from "../utils/constants.js";
 import Section from "../components/Section.js";
-import Popup from "../components/Popup.js";
+import Api from "../utils/Api.js";
 
 /* ELEMENTS */
 
@@ -45,9 +45,8 @@ popupWithImage.setEventListeners();
 const userInfo = new UserInfo({
   profileTitleSelector: ".profile__title",
   profileDescriptionSelector: ".profile__description",
+  avatarSelector: ".profile__avatar",
 });
-
-userInfo.setUserInfo({ title: "Jacques Cousteau", description: "Explorer" });
 
 const profileEditPopup = new PopupWithForm(
   "#profile__edit-modal",
@@ -122,3 +121,20 @@ function openZoomPicture(src, alt) {
 
   popupWithImage.open(data);
 }
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "93b64164-7992-45be-bad2-1f9098f0ec32",
+    "Content-Type": "application/json",
+  },
+});
+
+api.getUserInfo().then((userData) => {
+  console.log(userData, "Mega");
+  userInfo.setUserInfo({
+    title: userData.name,
+    description: userData.about,
+    avatar: userData.avatar,
+  });
+});
