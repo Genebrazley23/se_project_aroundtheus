@@ -1,9 +1,16 @@
 class Card {
-  constructor({ name, link }, cardSelector, cardImageClickHandler) {
+  constructor(
+    { name, link, _id },
+    cardSelector,
+    cardImageClickHandler,
+    handleDelete
+  ) {
     this._name = name;
     this._link = link;
+    this.id = _id;
     this._cardSelector = cardSelector;
     this._cardImageClickHandler = cardImageClickHandler;
+    this._handleDelete = handleDelete;
   }
 
   _setEventListeners() {
@@ -13,8 +20,7 @@ class Card {
     });
     const removeButton = this._cardElement.querySelector(".delete__button");
     removeButton.addEventListener("click", () => {
-      const cardItem = removeButton.closest(".card");
-      cardItem.remove();
+      this._handleDelete(this);
     });
 
     const cardImageElement = this._cardElement.querySelector(".card__image");
@@ -26,6 +32,11 @@ class Card {
     cardImageElement.src = this._link;
     cardImageElement.alt = this._name;
     cardTitleElement.textContent = this._name;
+  }
+
+  delete() {
+    const cardItem = removeButton.closest(".card");
+    cardItem.remove();
   }
 
   getView() {

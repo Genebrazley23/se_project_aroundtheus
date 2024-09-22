@@ -7,6 +7,7 @@ import UserInfo from "../components/UserInfo.js";
 import { initialCards, validationConfig } from "../utils/constants.js";
 import Section from "../components/Section.js";
 import Api from "../utils/Api.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 
 /* ELEMENTS */
 
@@ -33,11 +34,7 @@ const placeCreateClose = placeCreateModal.querySelector(".modal__close");
 const placeNameInput = document.querySelector("#place__name-input");
 const placeImageInput = document.querySelector("#place__image-link-input");
 
-const cardSection = new Section(
-  { renderer: createCard, items: initialCards },
-  ".cards__list"
-);
-cardSection.renderItems();
+const cardSection = new Section({ renderer: createCard }, ".cards__list");
 
 const popupWithImage = new PopupWithImage("#image__popup");
 popupWithImage.setEventListeners();
@@ -62,6 +59,12 @@ const placeCreatePopup = new PopupWithForm(
 
 placeCreatePopup.setEventListeners();
 
+const popupWithConfirm = new PopupWithConfirm(
+  "#place__delete-modal",
+  handleFormSubmit
+);
+popupWithConfirm.setEventListeners();
+
 const profileEditFormValidator = new FormValidator(
   validationConfig,
   profileEditForm
@@ -82,6 +85,7 @@ profileEditButton.addEventListener("click", function () {
 });
 
 function handleEditFormSubmit(data) {
+  api.updateUserInfo({ name: data.title, about: data.description });
   userInfo.setUserInfo(data);
   profileEditPopup.close();
 }
@@ -92,9 +96,9 @@ function handlePlaceCreateForm(data) {
     link: data.link,
   };
   placeCreateFormValidator.disableSubmit();
-
-  const card = createCard(cardData);
-  cardSection.addItem(card);
+  api.createCard(cardData);
+  const cardElement = createCard(cardData);
+  cardSection.addItem(cardElement);
   placeCreateForm.reset();
   placeCreatePopup.close();
   return false;
@@ -109,11 +113,36 @@ profileAddButton.addEventListener("click", function () {
 // Define the createCard function
 function createCard(cardData) {
   // Select the template element and clone its contents
-  const cardInfo = new Card(cardData, "#card__template", function () {
-    openZoomPicture(cardData.link, cardData.name);
-  });
+  const cardInfo = new Card(
+    cardData,
+    "#card__template",
+    function () {
+      openZoomPicture(cardData.link, cardData.name);
+    },
+    handleDeleteCard
+  );
   const cardElement = cardInfo.getView();
   return cardElement;
+}
+function handleDeleteCard(card) {
+  // Open the confirm popup
+  popupWithConfirm.open();
+
+  // Set the submit action for the confirmation
+  popupWithConfirm.setSubmitAction(() => {
+    api
+      .deleteCard(card.id)
+      .then(() => {
+        // Delete the card from the DOM
+        card.remove(); // Assuming 'card' is the DOM element
+        // Close the popup
+        popupWithConfirm.close();
+      })
+      .catch((err) => {
+        console.log(`Error deleting card: ${err}`);
+        // Optionally, add feedback to the user here
+      });
+  });
 }
 
 function openZoomPicture(src, alt) {
@@ -137,4 +166,8 @@ api.getUserInfo().then((userData) => {
     description: userData.about,
     avatar: userData.avatar,
   });
+});
+
+api.getInitialCards().then((cards) => {
+  cardSection.setItems(cards);
 });
