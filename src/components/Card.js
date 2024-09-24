@@ -1,11 +1,13 @@
 class Card {
   constructor(
-    { name, link, _id },
+    { name, link, _id, isLiked },
     cardSelector,
     cardImageClickHandler,
-    handleDelete
+    handleDelete,
+    cardLikeClick
   ) {
-   
+    this._isLiked = isLiked;
+    this._handleCardLikeClick = cardLikeClick;
     this._name = name;
     this._link = link;
     this.id = _id;
@@ -15,9 +17,10 @@ class Card {
   }
 
   _setEventListeners() {
-    const likeButton = this._cardElement.querySelector(".card__like-button");
-    likeButton.addEventListener("click", () => {
-      likeButton.classList.toggle("card__like-button_active");
+    this._likeButton.addEventListener("click", () => {
+      this._isLiked = !this._isLiked;
+      this.updateLikeState();
+      this._handleCardLikeClick(this.id, this._isLiked);
     });
     const removeButton = this._cardElement.querySelector(".delete__button");
     removeButton.addEventListener("click", () => {
@@ -34,11 +37,22 @@ class Card {
     cardImageElement.src = this._link;
     cardImageElement.alt = this._name;
     cardTitleElement.textContent = this._name;
+    this.updateLikeState();
+  }
+
+  updateLikeState() {
+    const activeClass = "card__like-button_active";
+    if (this._isLiked) {
+      this._likeButton.classList.add(activeClass);
+    } else {
+      this._likeButton.classList.remove(activeClass);
+    }
   }
 
   getView() {
     const cardTemplate = document.querySelector(this._cardSelector);
     this._cardElement = cardTemplate.content.cloneNode(true);
+    this._likeButton = this._cardElement.querySelector(".card__like-button");
     this._setEventListeners();
     this._bindInfo();
     return this._cardElement;

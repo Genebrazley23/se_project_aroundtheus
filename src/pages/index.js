@@ -108,6 +108,14 @@ profileAddButton.addEventListener("click", function () {
 
 /* Functions */
 
+function cardLikeClick(cardId, isLiked) {
+  if (isLiked) {
+    api.likeCard(cardId);
+  } else {
+    api.unlikeCard(cardId);
+  }
+}
+
 // Define the createCard function
 function createCard(cardData) {
   // Select the template element and clone its contents
@@ -117,7 +125,8 @@ function createCard(cardData) {
     function () {
       openZoomPicture(cardData.link, cardData.name);
     },
-    handleDeleteCard
+    handleDeleteCard,
+    cardLikeClick
   );
   const cardElement = cardInfo.getView();
   return cardElement;
