@@ -59,16 +59,14 @@ const placeCreatePopup = new PopupWithForm(
 
 placeCreatePopup.setEventListeners();
 
-const popupWithConfirm = new PopupWithConfirm(
-  "#place__delete-modal",
-  handleFormSubmit
-);
+const popupWithConfirm = new PopupWithConfirm("#place__delete-modal");
 popupWithConfirm.setEventListeners();
 
 const profileEditFormValidator = new FormValidator(
   validationConfig,
   profileEditForm
 );
+
 const placeCreateFormValidator = new FormValidator(
   validationConfig,
   placeCreateForm
@@ -124,7 +122,7 @@ function createCard(cardData) {
   const cardElement = cardInfo.getView();
   return cardElement;
 }
-function handleDeleteCard(card) {
+function handleDeleteCard(card, cardElement) {
   // Open the confirm popup
   popupWithConfirm.open();
 
@@ -134,12 +132,12 @@ function handleDeleteCard(card) {
       .deleteCard(card.id)
       .then(() => {
         // Delete the card from the DOM
-        card.remove(); // Assuming 'card' is the DOM element
+        cardElement.remove(); // Assuming 'card' is the DOM element
         // Close the popup
         popupWithConfirm.close();
       })
       .catch((err) => {
-        console.log(`Error deleting card: ${err}`);
+        console.error(`Error deleting card: ${err}`);
         // Optionally, add feedback to the user here
       });
   });
@@ -160,7 +158,6 @@ const api = new Api({
 });
 
 api.getUserInfo().then((userData) => {
-  console.log(userData, "Mega");
   userInfo.setUserInfo({
     title: userData.name,
     description: userData.about,

@@ -11,7 +11,6 @@ export default class Api {
   }
 
   getUserInfo() {
-    console.log("m3wocmmrmc", this, this._baseUrl, this._defaultHeaders);
     return this.handleresponse(
       fetch(this._baseUrl + "/users/me", { headers: this._defaultHeaders })
     );
@@ -82,7 +81,7 @@ export default class Api {
         return Promise.reject(`Error: ${res.status}`);
       })
       .catch((err) => {
-        console.error(err); // log the error to the console
+        console.error(err);
       });
   }
 

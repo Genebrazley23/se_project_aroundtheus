@@ -5,6 +5,7 @@ class Card {
     cardImageClickHandler,
     handleDelete
   ) {
+   
     this._name = name;
     this._link = link;
     this.id = _id;
@@ -20,7 +21,8 @@ class Card {
     });
     const removeButton = this._cardElement.querySelector(".delete__button");
     removeButton.addEventListener("click", () => {
-      this._handleDelete(this);
+      const cardItem = removeButton.closest(".card");
+      this._handleDelete(this, cardItem);
     });
 
     const cardImageElement = this._cardElement.querySelector(".card__image");
@@ -32,11 +34,6 @@ class Card {
     cardImageElement.src = this._link;
     cardImageElement.alt = this._name;
     cardTitleElement.textContent = this._name;
-  }
-
-  delete() {
-    const cardItem = removeButton.closest(".card");
-    cardItem.remove();
   }
 
   getView() {
