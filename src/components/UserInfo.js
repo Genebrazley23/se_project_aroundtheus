@@ -22,7 +22,7 @@ export default class UserInfo {
     this._profileTitle.textContent = title;
     this._profileDescription.textContent = description;
     if (avatar) {
-      this._avatar.src = avatar;
+      this._avatar.style.backgroundImage = `url(${avatar})`;
     }
   }
 }

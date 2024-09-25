@@ -34,6 +34,10 @@ const placeCreateClose = placeCreateModal.querySelector(".modal__close");
 const placeNameInput = document.querySelector("#place__name-input");
 const placeImageInput = document.querySelector("#place__image-link-input");
 
+const avatarEditButton = document.querySelector(".profile__avatar");
+const updateAvatarForm = document.forms["avatar__update-form"];
+const avatarInput = document.querySelector("#avatar__image-link-input");
+
 const cardSection = new Section({ renderer: createCard }, ".cards__list");
 
 const popupWithImage = new PopupWithImage("#image__popup");
@@ -57,7 +61,24 @@ const placeCreatePopup = new PopupWithForm(
   handlePlaceCreateForm
 );
 
-placeCreatePopup.setEventListeners();
+const setAvatarPopup = new PopupWithForm(
+  "#avatar__update-modal",
+  handleAvatarUpdate
+);
+
+setAvatarPopup.setEventListeners();
+
+avatarEditButton.addEventListener("click", () => {
+  setAvatarPopup.open();
+});
+
+// find avatar image element and add a click handler to open the update form.
+//
+const updateAvatarFormValidator = new FormValidator(
+  validationConfig,
+  updateAvatarForm
+);
+updateAvatarFormValidator.enableValidation();
 
 const popupWithConfirm = new PopupWithConfirm("#place__delete-modal");
 popupWithConfirm.setEventListeners();
@@ -73,6 +94,16 @@ const placeCreateFormValidator = new FormValidator(
 );
 profileEditFormValidator.enableValidation();
 placeCreateFormValidator.enableValidation();
+
+const handleProfileFormSubmit = (data) => {
+  return api.updateUserInfo(data); // This should return a Promise
+};
+
+const popupWithForm = new PopupWithForm(
+  "#profile__edit-modal",
+  handleProfileFormSubmit
+);
+popupWithForm.setEventListeners();
 
 /* LISTENERS */
 profileEditButton.addEventListener("click", function () {
@@ -107,6 +138,20 @@ profileAddButton.addEventListener("click", function () {
 });
 
 /* Functions */
+
+function handleAvatarUpdate({ link }) {
+  api
+    .updateAvatar({ avatar: link })
+    .then((res) => {
+      userInfo.setUserInfo({
+        title: res.name,
+        description: res.about,
+        avatar: res.avatar,
+      });
+      setAvatarPopup.close();
+    })
+    .catch((err) => console.err(`Error updating avatar: ${err}`));
+}
 
 function cardLikeClick(cardId, isLiked) {
   if (isLiked) {
@@ -146,7 +191,7 @@ function handleDeleteCard(card, cardElement) {
         popupWithConfirm.close();
       })
       .catch((err) => {
-        console.error(`Error deleting card: ${err}`);
+        console.err(`Error deleting card: ${err}`);
         // Optionally, add feedback to the user here
       });
   });

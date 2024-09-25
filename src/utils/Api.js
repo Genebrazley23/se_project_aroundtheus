@@ -63,11 +63,12 @@ export default class Api {
     );
   }
 
-  updateAvatar() {
+  updateAvatar(avatar) {
     return this.handleresponse(
       fetch(this._baseUrl + "/users/me/avatar", {
         method: "PATCH",
         headers: this._defaultHeaders,
+        body: JSON.stringify(avatar),
       })
     );
   }
@@ -81,7 +82,7 @@ export default class Api {
         return Promise.reject(`Error: ${res.status}`);
       })
       .catch((err) => {
-        console.error(err);
+        console.err(err);
       });
   }
 
