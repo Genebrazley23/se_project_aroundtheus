@@ -120,8 +120,8 @@ function handlePlaceCreateForm(data) {
     link: data.link,
   };
   placeCreateFormValidator.disableSubmit();
-  return api.createCard(cardData).then(() => {
-    const cardElement = createCard(cardData);
+  return api.createCard(cardData).then((card) => {
+    const cardElement = createCard(card);
     cardSection.addItem(cardElement);
     placeCreateForm.reset();
     placeCreatePopup.close();
