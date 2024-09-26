@@ -61,6 +61,8 @@ const placeCreatePopup = new PopupWithForm(
   handlePlaceCreateForm
 );
 
+placeCreatePopup.setEventListeners();
+
 const setAvatarPopup = new PopupWithForm(
   "#avatar__update-modal",
   handleAvatarUpdate
@@ -95,16 +97,6 @@ const placeCreateFormValidator = new FormValidator(
 profileEditFormValidator.enableValidation();
 placeCreateFormValidator.enableValidation();
 
-const handleProfileFormSubmit = (data) => {
-  return api.updateUserInfo(data); // This should return a Promise
-};
-
-const popupWithForm = new PopupWithForm(
-  "#profile__edit-modal",
-  handleProfileFormSubmit
-);
-popupWithForm.setEventListeners();
-
 /* LISTENERS */
 profileEditButton.addEventListener("click", function () {
   const userData = userInfo.getUserInfo();
@@ -114,9 +106,12 @@ profileEditButton.addEventListener("click", function () {
 });
 
 function handleEditFormSubmit(data) {
-  api.updateUserInfo({ name: data.title, about: data.description });
-  userInfo.setUserInfo(data);
-  profileEditPopup.close();
+  return api
+    .updateUserInfo({ name: data.title, about: data.description })
+    .then(() => {
+      userInfo.setUserInfo(data);
+      profileEditPopup.close();
+    });
 }
 
 function handlePlaceCreateForm(data) {
@@ -125,12 +120,12 @@ function handlePlaceCreateForm(data) {
     link: data.link,
   };
   placeCreateFormValidator.disableSubmit();
-  api.createCard(cardData);
-  const cardElement = createCard(cardData);
-  cardSection.addItem(cardElement);
-  placeCreateForm.reset();
-  placeCreatePopup.close();
-  return false;
+  return api.createCard(cardData).then(() => {
+    const cardElement = createCard(cardData);
+    cardSection.addItem(cardElement);
+    placeCreateForm.reset();
+    placeCreatePopup.close();
+  });
 }
 
 profileAddButton.addEventListener("click", function () {
@@ -140,7 +135,7 @@ profileAddButton.addEventListener("click", function () {
 /* Functions */
 
 function handleAvatarUpdate({ link }) {
-  api
+  return api
     .updateAvatar({ avatar: link })
     .then((res) => {
       userInfo.setUserInfo({

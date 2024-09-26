@@ -24,6 +24,7 @@ export default class PopupWithForm extends Popup {
   }
 
   renderLoading(isLoading) {
+    console.log("fmer", isLoading, this._submitButtonText);
     if (isLoading) {
       this._submitButton.textContent = "Saving...";
       this._submitButton.disabled = true;
