@@ -110,7 +110,9 @@ function handleEditFormSubmit(data) {
     .updateUserInfo({ name: data.title, about: data.description })
     .then(() => {
       userInfo.setUserInfo(data);
-      profileEditPopup.close();
+    })
+    .catch((error) => {
+      console.error("Error updating user info:", error);
     });
 }
 
@@ -123,8 +125,6 @@ function handlePlaceCreateForm(data) {
   return api.createCard(cardData).then((card) => {
     const cardElement = createCard(card);
     cardSection.addItem(cardElement);
-    placeCreateForm.reset();
-    placeCreatePopup.close();
   });
 }
 
@@ -135,24 +135,25 @@ profileAddButton.addEventListener("click", function () {
 /* Functions */
 
 function handleAvatarUpdate({ link }) {
-  return api
-    .updateAvatar({ avatar: link })
-    .then((res) => {
-      userInfo.setUserInfo({
-        title: res.name,
-        description: res.about,
-        avatar: res.avatar,
-      });
-      setAvatarPopup.close();
-    })
-    .catch((err) => console.err(`Error updating avatar: ${err}`));
+  return api.updateAvatar({ avatar: link }).then((res) => {
+    userInfo.setUserInfo({
+      title: res.name,
+      description: res.about,
+      avatar: res.avatar,
+    });
+    setAvatarPopup.close();
+  });
 }
 
-function cardLikeClick(cardId, isLiked) {
+function cardLikeClick(card, cardId, isLiked) {
   if (isLiked) {
-    api.likeCard(cardId);
+    api.likeCard(cardId).then(() => {
+      card.updateLikeState();
+    });
   } else {
-    api.unlikeCard(cardId);
+    api.unlikeCard(cardId).then(() => {
+      card.updateLikeState();
+    });
   }
 }
 
@@ -180,14 +181,12 @@ function handleDeleteCard(card, cardElement) {
     api
       .deleteCard(card.id)
       .then(() => {
-        // Delete the card from the DOM
-        cardElement.remove(); // Assuming 'card' is the DOM element
-        // Close the popup
+        cardElement.remove();
+
         popupWithConfirm.close();
       })
       .catch((err) => {
         console.err(`Error deleting card: ${err}`);
-        // Optionally, add feedback to the user here
       });
   });
 }

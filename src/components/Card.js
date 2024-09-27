@@ -20,7 +20,7 @@ class Card {
     this._likeButton.addEventListener("click", () => {
       this._isLiked = !this._isLiked;
       this.updateLikeState();
-      this._handleCardLikeClick(this.id, this._isLiked);
+      this._handleCardLikeClick(this, this.id, this._isLiked);
     });
     const removeButton = this._cardElement.querySelector(".delete__button");
     removeButton.addEventListener("click", () => {
