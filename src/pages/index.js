@@ -110,7 +110,6 @@ function handleEditFormSubmit(data) {
     .updateUserInfo({ name: data.title, about: data.description })
     .then(() => {
       userInfo.setUserInfo(data);
-      profileEditPopup.close();
     });
 }
 
@@ -123,8 +122,6 @@ function handlePlaceCreateForm(data) {
   return api.createCard(cardData).then((card) => {
     const cardElement = createCard(card);
     cardSection.addItem(cardElement);
-    placeCreateForm.reset();
-    placeCreatePopup.close();
   });
 }
 

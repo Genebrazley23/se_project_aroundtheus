@@ -5,19 +5,19 @@ export default class Api {
   }
 
   getInitialCards() {
-    return this.handleresponse(
+    return this.handleResponse(
       fetch(this._baseUrl + "/cards", { headers: this._defaultHeaders })
     );
   }
 
   getUserInfo() {
-    return this.handleresponse(
+    return this.handleResponse(
       fetch(this._baseUrl + "/users/me", { headers: this._defaultHeaders })
     );
   }
 
   updateUserInfo(userInfo) {
-    return this.handleresponse(
+    return this.handleResponse(
       fetch(this._baseUrl + "/users/me", {
         method: "PATCH",
         headers: this._defaultHeaders,
@@ -27,7 +27,7 @@ export default class Api {
   }
 
   createCard(createCardInfo) {
-    return this.handleresponse(
+    return this.handleResponse(
       fetch(this._baseUrl + "/cards", {
         method: "POST",
         headers: this._defaultHeaders,
@@ -37,7 +37,7 @@ export default class Api {
   }
 
   deleteCard(cardId) {
-    return this.handleresponse(
+    return this.handleResponse(
       fetch(this._baseUrl + "/cards/" + cardId, {
         method: "DELETE",
         headers: this._defaultHeaders,
@@ -46,7 +46,7 @@ export default class Api {
   }
 
   likeCard(cardId) {
-    return this.handleresponse(
+    return this.handleResponse(
       fetch(this._baseUrl + "/cards/" + cardId + "/likes", {
         method: "PUT",
         headers: this._defaultHeaders,
@@ -55,7 +55,7 @@ export default class Api {
   }
 
   unlikeCard(cardId) {
-    return this.handleresponse(
+    return this.handleResponse(
       fetch(this._baseUrl + "/cards/" + cardId + "/likes", {
         method: "DELETE",
         headers: this._defaultHeaders,
@@ -64,7 +64,7 @@ export default class Api {
   }
 
   updateAvatar(avatar) {
-    return this.handleresponse(
+    return this.handleResponse(
       fetch(this._baseUrl + "/users/me/avatar", {
         method: "PATCH",
         headers: this._defaultHeaders,
@@ -73,7 +73,7 @@ export default class Api {
     );
   }
 
-  handleresponse(request) {
+  handleResponse(request) {
     return request
       .then((res) => {
         if (res.ok) {
