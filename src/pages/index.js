@@ -146,9 +146,13 @@ function handleAvatarUpdate({ link }) {
 
 function cardLikeClick(cardId, isLiked) {
   if (isLiked) {
-    api.likeCard(cardId);
+    api.likeCard(cardId).catch((error) => {
+      console.error(`Failed to like card with ID ${cardId}:`, error);
+    });
   } else {
-    api.unlikeCard(cardId);
+    api.unlikeCard(cardId).catch((error) => {
+      console.error(`Failed to unlike card with ID ${cardId}:`, error);
+    });
   }
 }
 
