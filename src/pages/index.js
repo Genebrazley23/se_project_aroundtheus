@@ -135,17 +135,13 @@ profileAddButton.addEventListener("click", function () {
 /* Functions */
 
 function handleAvatarUpdate({ link }) {
-  return api
-    .updateAvatar({ avatar: link })
-    .then((res) => {
-      userInfo.setUserInfo({
-        title: res.name,
-        description: res.about,
-        avatar: res.avatar,
-      });
-      setAvatarPopup.close();
-    })
-    .catch((err) => console.err(`Error updating avatar: ${err}`));
+  return api.updateAvatar({ avatar: link }).then((res) => {
+    userInfo.setUserInfo({
+      title: res.name,
+      description: res.about,
+      avatar: res.avatar,
+    });
+  });
 }
 
 function cardLikeClick(cardId, isLiked) {
@@ -156,9 +152,7 @@ function cardLikeClick(cardId, isLiked) {
   }
 }
 
-// Define the createCard function
 function createCard(cardData) {
-  // Select the template element and clone its contents
   const cardInfo = new Card(
     cardData,
     "#card__template",
@@ -172,22 +166,18 @@ function createCard(cardData) {
   return cardElement;
 }
 function handleDeleteCard(card, cardElement) {
-  // Open the confirm popup
   popupWithConfirm.open();
 
-  // Set the submit action for the confirmation
   popupWithConfirm.setSubmitAction(() => {
     api
       .deleteCard(card.id)
       .then(() => {
-        // Delete the card from the DOM
-        cardElement.remove(); // Assuming 'card' is the DOM element
-        // Close the popup
+        cardElement.remove();
+
         popupWithConfirm.close();
       })
       .catch((err) => {
         console.err(`Error deleting card: ${err}`);
-        // Optionally, add feedback to the user here
       });
   });
 }
