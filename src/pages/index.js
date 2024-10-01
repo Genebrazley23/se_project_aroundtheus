@@ -141,7 +141,7 @@ function handleAvatarUpdate({ link }) {
   });
 }
 
-function cardLikeClick(cardId, isLiked) {
+function cardLikeClick(card, cardId, isLiked) {
   if (isLiked) {
     api.likeCard(cardId).catch((error) => {
       console.error(`Failed to like card with ID ${cardId}:`, error);
@@ -173,6 +173,8 @@ function handleDeleteCard(card, cardElement) {
     api
       .deleteCard(card.id)
       .then(() => {
+        cardElement.remove();
+
         cardElement.remove();
 
         popupWithConfirm.close();
