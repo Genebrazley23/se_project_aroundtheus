@@ -119,10 +119,16 @@ function handlePlaceCreateForm(data) {
     link: data.link,
   };
   placeCreateFormValidator.disableSubmit();
-  return api.createCard(cardData).then((card) => {
-    const cardElement = createCard(card);
-    cardSection.addItem(cardElement);
-  });
+  return api
+    .createCard(cardData)
+    .then((card) => {
+      const cardElement = createCard(card);
+      cardSection.addItem(cardElement);
+      placeCreateFormValidator.disableSubmit();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 profileAddButton.addEventListener("click", function () {
@@ -143,13 +149,9 @@ function handleAvatarUpdate({ link }) {
 
 function cardLikeClick(cardId, isLiked) {
   if (isLiked) {
-    return api.likeCard(cardId).catch((error) => {
-      console.error(`Failed to like card with ID ${cardId}:`, error);
-    });
+    return api.likeCard(cardId);
   } else {
-    return api.unlikeCard(cardId).catch((error) => {
-      console.error(`Failed to unlike card with ID ${cardId}:`, error);
-    });
+    return api.unlikeCard(cardId);
   }
 }
 
@@ -168,7 +170,6 @@ function createCard(cardData) {
 }
 function handleDeleteCard(card, cardElement) {
   popupWithConfirm.open();
-  console.log("ghdd", card);
   popupWithConfirm.setSubmitAction(() => {
     return api
       .deleteCard(card._id)
