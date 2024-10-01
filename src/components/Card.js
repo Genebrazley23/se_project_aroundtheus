@@ -65,13 +65,7 @@ class Card {
 
     // Delete Button Event Listener
     this._removeButton.addEventListener("click", () => {
-      this._handleDelete(this, this._cardElement)
-        .then(() => {
-          this._cardElement.remove();
-        })
-        .catch((err) => {
-          console.error("Failed to delete card:", err);
-        });
+      this._handleDelete(this, this._cardElement);
     });
 
     this._cardImageElement.addEventListener(

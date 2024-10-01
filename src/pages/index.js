@@ -141,13 +141,13 @@ function handleAvatarUpdate({ link }) {
   });
 }
 
-function cardLikeClick(card, cardId, isLiked) {
+function cardLikeClick(cardId, isLiked) {
   if (isLiked) {
-    api.likeCard(cardId).catch((error) => {
+    return api.likeCard(cardId).catch((error) => {
       console.error(`Failed to like card with ID ${cardId}:`, error);
     });
   } else {
-    api.unlikeCard(cardId).catch((error) => {
+    return api.unlikeCard(cardId).catch((error) => {
       console.error(`Failed to unlike card with ID ${cardId}:`, error);
     });
   }
@@ -168,13 +168,11 @@ function createCard(cardData) {
 }
 function handleDeleteCard(card, cardElement) {
   popupWithConfirm.open();
-
+  console.log("ghdd", card);
   popupWithConfirm.setSubmitAction(() => {
-    api
-      .deleteCard(card.id)
+    return api
+      .deleteCard(card._id)
       .then(() => {
-        cardElement.remove();
-
         cardElement.remove();
 
         popupWithConfirm.close();
