@@ -139,6 +139,7 @@ profileAddButton.addEventListener("click", function () {
 
 function handleAvatarUpdate({ link }) {
   return api.updateAvatar({ avatar: link }).then((res) => {
+    updateAvatarFormValidator.disableSubmit();
     userInfo.setUserInfo({
       title: res.name,
       description: res.about,
