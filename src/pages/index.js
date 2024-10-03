@@ -118,17 +118,12 @@ function handlePlaceCreateForm(data) {
     name: data.title,
     link: data.link,
   };
-  placeCreateFormValidator.disableSubmit();
-  return api
-    .createCard(cardData)
-    .then((card) => {
-      const cardElement = createCard(card);
-      cardSection.addItem(cardElement);
-      placeCreateFormValidator.disableSubmit();
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+
+  return api.createCard(cardData).then((card) => {
+    const cardElement = createCard(card);
+    cardSection.addItem(cardElement);
+    placeCreateFormValidator.disableSubmit();
+  });
 }
 
 profileAddButton.addEventListener("click", function () {
@@ -199,14 +194,24 @@ const api = new Api({
   },
 });
 
-api.getUserInfo().then((userData) => {
-  userInfo.setUserInfo({
-    title: userData.name,
-    description: userData.about,
-    avatar: userData.avatar,
+api
+  .getUserInfo()
+  .then((userData) => {
+    userInfo.setUserInfo({
+      title: userData.name,
+      description: userData.about,
+      avatar: userData.avatar,
+    });
+  })
+  .catch((err) => {
+    console.error("Error fetching user info:", err);
   });
-});
 
-api.getInitialCards().then((cards) => {
-  cardSection.setItems(cards);
-});
+api
+  .getInitialCards()
+  .then((cards) => {
+    cardSection.setItems(cards);
+  })
+  .catch((err) => {
+    console.error("Error fetching initial cards:", err);
+  });
