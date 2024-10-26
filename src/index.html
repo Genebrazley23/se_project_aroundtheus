@@ -16,11 +16,9 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/Avatar.jpg')%>"
-            alt="Avatar logo"
-            class="profile__avater"
-          />
+          <div class="profile__avatar">
+            <div class="edit__avatar-button"></div>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -131,11 +129,46 @@
       </div>
     </div>
 
+    <div class="modal" id="place__delete-modal">
+      <div class="modal__container">
+        <button class="modal__close"></button>
+        <p class="modal__heading">Are you sure?</p>
+
+        <button id="place__delete-button" class="modal__button">Yes</button>
+      </div>
+    </div>
+
     <div class="modal" id="image__popup">
       <div class="modal__container">
         <button class="modal__close"></button>
         <img class="modal__zoom" src="" alt="" />
         <p class="modal__name"></p>
+      </div>
+    </div>
+
+    <div class="modal" id="avatar__update-modal">
+      <div class="modal__container">
+        <button class="modal__close"></button>
+        <p class="modal__heading">Change Profile Picture</p>
+        <form id="avatar__update-form" class="modal__form">
+          <label>
+            <input
+              class="modal__input"
+              type="url"
+              name="link"
+              id="avatar__image-link-input"
+              placeholder="Image link"
+              required
+            />
+            <span
+              class="modal__error modal__error_visible"
+              id="avatar__image-link-input-error"
+            ></span>
+          </label>
+          <button class="modal__button modal__button_disabled" disabled>
+            Save
+          </button>
+        </form>
       </div>
     </div>
 
