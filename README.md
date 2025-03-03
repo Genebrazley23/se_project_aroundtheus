@@ -40,8 +40,9 @@ Below are images used in the project:
 <img width="1145" alt="Screen Shot 2025-03-03 at 4 47 15 PM" src="https://github.com/user-attachments/assets/d1a74cb9-7ace-4222-8ef6-788ac6eff3a7" />
 
 
-## Live Demo:
-https://genebrazley23.github.io/se_project_aroundtheus/
+## Live Demo && video description:
+- https://genebrazley23.github.io/se_project_aroundtheus/
+- [link to video description](https://youtu.be/bXGx9-tSz0Y)
 
 The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster.
 
@@ -51,4 +52,4 @@ The way you'll do this at work is by exporting images directly from Figma — we
 
 - [link to project](https://genebrazley23.github.io/se_project_aroundtheus/)
 
-- [link to video description](https://youtu.be/bXGx9-tSz0Y)
+
