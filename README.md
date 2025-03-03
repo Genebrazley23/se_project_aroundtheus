@@ -33,13 +33,12 @@ View the Figma design
  ## Images
 Below are images used in the project:
 
-![Alt text](images/vanoise-national-park.png)
-![Alt text](<images/yosemite-valley(1).jpg>)
-![Alt text](images/bald-mountains.png)
-![Alt text](images/lago-di-braies.png)
-![Alt text](images/lake-louise.png)
-![Alt text](images/latemar.png)
-![project sreenshot](images/Screen%20Shot%202024-06-13%20at%207.09.09%20PM.png)
+![latemar](https://github.com/user-attachments/assets/48f5f174-e534-460b-9757-c188ce023f69)
+![lake-louise](https://github.com/user-attachments/assets/178bdc76-244d-4b3e-879c-c07674141bca)
+![lago-di-braies](https://github.com/user-attachments/assets/04c6b5ee-ee68-49bc-b59b-97d70a517b0e)
+(![vanoise-national-park](https://github.com/user-attachments/assets/df0a7aef-b641-47dc-8368-0f6f6126a340)
+<img width="1145" alt="Screen Shot 2025-03-03 at 4 47 15 PM" src="https://github.com/user-attachments/assets/d1a74cb9-7ace-4222-8ef6-788ac6eff3a7" />
+
 
 ## Live Demo:
 https://genebrazley23.github.io/se_project_aroundtheus/
